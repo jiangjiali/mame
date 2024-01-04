@@ -45,4 +45,4 @@ jobs:
         ARCHOPTS: "-fuse-ld=lld"
         SUBTARGET: ${{ matrix.subtarget }}
         TOOLS: 1
-      run: make SUBTARGET=tiny -j9
+      run: make SUBTARGET=tiny android-arm64 -j9
