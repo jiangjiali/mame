@@ -3,7 +3,6 @@ name: CI (Windows)
 on:
   push:
     paths:
-    - '.github/workflows/**'
     - '3rdparty/**'
     - 'scripts/**'
     - 'src/**'
@@ -11,7 +10,6 @@ on:
     - 'makefile'
   pull_request:
     paths:
-    - '.github/workflows/**'
     - '3rdparty/**'
     - 'scripts/**'
     - 'src/**'

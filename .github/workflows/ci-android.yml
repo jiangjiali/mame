@@ -1,22 +1,11 @@
-name: CI (Linux)
+name: CI (Android)
 
 on:
-  push:
-    paths:
-    - '3rdparty/**'
-    - 'hash/**'
-    - 'scripts/**'
-    - 'src/**'
-    - 'COPYING'
-    - 'makefile'
-  pull_request:
-    paths:
-    - '3rdparty/**'
-    - 'hash/**'
-    - 'scripts/**'
-    - 'src/**'
-    - 'COPYING'
-    - 'makefile'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'tag name'
+        required: true
 
 permissions:
   contents: read
@@ -56,17 +45,4 @@ jobs:
         ARCHOPTS: ${{ matrix.archopts }}
         SUBTARGET: ${{ matrix.subtarget }}
         TOOLS: 1
-      run: make -j2
-    - name: Validate
-      run: ./${{ matrix.executable }} -validate
-    - name: Reconcile driver list
-      run: ./${{ matrix.executable }} -listxml | python scripts/build/makedep.py reconcilelist -l src/mame/${{ matrix.subtarget }}.lst -
-    - name: ORM check
-      run: python scripts/minimaws/minimaws.py load --executable ./${{ matrix.executable }} --softwarepath hash
-    - uses: actions/upload-artifact@master
-      with:
-        name: ${{ matrix.executable }}-linux-${{ matrix.compiler }}-${{ github.sha }}
-        path: |
-          ${{ matrix.executable }}
-          chdman
-          unidasm
+      run: make android-arm
