@@ -45,4 +45,4 @@ jobs:
         ARCHOPTS: ${{ matrix.archopts }}
         SUBTARGET: ${{ matrix.subtarget }}
         TOOLS: 1
-      run: make android-arm
+      run: make SUBTARGET=tiny android-arm -j9
