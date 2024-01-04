@@ -45,4 +45,4 @@ jobs:
         ARCHOPTS: "-fuse-ld=lld"
         SUBTARGET: ${{ matrix.subtarget }}
         TOOLS: 1
-      run: pacman -S mame-essentials android-ndk android-sdk java && make SUBTARGET=tiny android-arm -j9
+      run: make SUBTARGET=tiny android-arm -j9
