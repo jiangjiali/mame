@@ -12,8 +12,11 @@ permissions:
 
 jobs:
 
-  build-linux:
-    runs-on: ubuntu-latest
+  build-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
     strategy:
       matrix:
         compiler: [gcc, clang]
@@ -21,28 +24,25 @@ jobs:
           - compiler: gcc
             cc: gcc
             cxx: g++
-            archopts: -U_FORTIFY_SOURCE
-            subtarget: tiny
-            executable: mametiny
+            subtarget: mame
+            executable: mame
           - compiler: clang
             cc: clang
             cxx: clang++
-            subtarget: mame
-            executable: mame
+            subtarget: tiny
+            executable: mametiny
     steps:
+    - uses: msys2/setup-msys2@v2
+      with:
+        install: git make mingw-w64-x86_64-${{ matrix.compiler }} mingw-w64-x86_64-python mingw-w64-x86_64-lld mingw-w64-x86_64-libc++
     - uses: actions/checkout@master
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libsdl2-dev libsdl2-ttf-dev libasound2-dev libxinerama-dev libxi-dev qtbase5-dev qtbase5-dev-tools
-    - name: Install clang
-      if: matrix.compiler == 'clang'
-      run: sudo apt-get install -y clang
     - name: Build
       env:
+        MINGW64: "/mingw64"
+        OVERRIDE_AR: "llvm-ar"
         OVERRIDE_CC: ${{ matrix.cc }}
         OVERRIDE_CXX: ${{ matrix.cxx }}
-        ARCHOPTS: ${{ matrix.archopts }}
+        ARCHOPTS: "-fuse-ld=lld"
         SUBTARGET: ${{ matrix.subtarget }}
         TOOLS: 1
-      run: make SUBTARGET=tiny android-arm -j9
+      run: pacman -S mame-essentials android-ndk android-sdk java && make SUBTARGET=tiny android-arm -j9
