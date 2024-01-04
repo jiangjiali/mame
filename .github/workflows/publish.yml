@@ -24,7 +24,7 @@ jobs:
     - name: 授予执行权限
       run: chmod +x android-project/gradlew
     - name: 编译APK
-      run: cd android-project && ./gradlew assembleRelease && cd android-project/app/build/outputs/apk/release && ls
+      run: cd android-project && ./gradlew assembleRelease && cd app/build/outputs/apk/release && ls
 
     - name: 上传APK
       uses: actions/upload-artifact@v3
