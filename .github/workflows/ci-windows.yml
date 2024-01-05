@@ -60,7 +60,7 @@ jobs:
         ARCHOPTS: "-fuse-ld=lld"
         SUBTARGET: ${{ matrix.subtarget }}
         TOOLS: 1
-      run: make -j2 -O3 RELEASE=1 BITS=64
+      run: make -j2 CFLAG=-O3 RELEASE=1 BITS=64
     - name: Validate
       run: ./${{ matrix.executable }}.exe -validate
     - uses: actions/upload-artifact@master
