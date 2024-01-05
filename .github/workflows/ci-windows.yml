@@ -28,13 +28,18 @@ jobs:
         shell: msys2 {0}
     strategy:
       matrix:
-        compiler: [gcc]
+        compiler: [gcc, clang]
         include:
           - compiler: gcc
             cc: gcc
             cxx: g++
             subtarget: mame
             executable: mame
+          - compiler: clang
+            cc: clang
+            cxx: clang++
+            subtarget: tiny
+            executable: mametiny
     steps:
     - uses: msys2/setup-msys2@v2
       with:
