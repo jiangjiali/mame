@@ -54,8 +54,7 @@ jobs:
         PTR64: 1
         SYMBOLS: 1
         SYMLEVEL: 1
-        TARGET: neogeo
-      run: make -j9 && make -f dist.mak
+      run: make -j9 && make -f dist.mak TARGET=neogeo
     - uses: actions/upload-artifact@master
       with:
         name: neogeo-windows-x64-${{ github.event.inputs.tag_name }}
