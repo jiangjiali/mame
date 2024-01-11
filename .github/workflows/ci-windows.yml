@@ -60,7 +60,7 @@ jobs:
         ARCHOPTS: "-fuse-ld=lld"
         SUBTARGET: ${{ matrix.subtarget }}
         TOOLS: 1
-      run: make -j2 CFLAG=-O3 RELEASE=1 BITS=64
+      run: make -j9 NOWERROR=1 DEPRECATED=0 OPTIMIZE=3 SUBTARGET=neogeo SOURCES=src/mame/neogeo DEBUG=0
     - name: Validate
       run: ./${{ matrix.executable }}.exe -validate
     - uses: actions/upload-artifact@master
@@ -68,5 +68,19 @@ jobs:
         name: ${{ matrix.executable }}-windows-${{ matrix.compiler }}-${{ github.sha }}
         path: |
           ${{ matrix.executable }}.exe
+          castool.exe
           chdman.exe
+          floptool.exe
+          imgtool.exe
+          jedutil.exe
+          ldresample.exe
+          ldverify.exe
+          ledutil.exe
+          nltool.exe
+          nlwav.exe
+          pngcmp.exe
+          regrep.exe
+          romcmp.exe
+          split.exe
+          srcclean.exe
           unidasm.exe
