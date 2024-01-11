@@ -100,9 +100,9 @@ BINDIR := build/$(PROJECTTYPE)/bin/$(BUILDARCH)/$(BUILDVARIANT)
 STAGEDIR := build/release/$(BUILDARCH)/$(BUILDVARIANT)/$(TARGET)
 
 BINARIES = $(MAINBIN) castool chdman floptool imgtool jedutil ldresample ldverify ledutil nltool nlwav pngcmp regrep romcmp split srcclean unidasm
-SIMPLE_DIRS := artwork bgfx ctrlr hash hlsl ini/examples ini/presets plugins samples
+SIMPLE_DIRS := ctrlr hash ini/examples ini/presets
 LOCALISATIONS := $(wildcard language/*/*.mo)
-COPIED_FILES := uismall.bdf roms/dir.txt $(foreach DIR,$(SIMPLE_DIRS),$(wildcard $(DIR)/*)) language/README.md $(LOCALISATIONS)
+COPIED_FILES := uismall.bdf roms/dir.txt $(foreach SDIR,$(SIMPLE_DIRS),$(wildcard $(SDIR)/*)) $(LOCALISATIONS)
 CREATED_DIRS := ini roms $(SIMPLE_DIRS) language $(dir $(LOCALISATIONS))
 
 GEN_FOLDERS := $(addprefix $(STAGEDIR)/,$(CREATED_DIRS))
