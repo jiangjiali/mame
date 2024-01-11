@@ -38465,6 +38465,9 @@ cp2000
 @source:saitek/delta1.cpp
 ccdelta1
 
+@source:saitek/ecbackg.cpp
+ecbackg
+
 @source:saitek/edames.cpp
 edames
 
@@ -44624,6 +44627,7 @@ gammonm2
 
 @source:tryom/omar.cpp
 omar
+omar2
 
 @source:tvgames/actions_atj2279b.cpp
 rbitgen
