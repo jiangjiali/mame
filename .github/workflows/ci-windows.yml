@@ -54,7 +54,7 @@ jobs:
       run: make -j9
     - uses: actions/upload-artifact@master
       with:
-        name: neogeo-windows-${{ github.sha }}
+        name: neogeo-windows-${{ github.event.inputs.tag_name }}
         path: |
           neogeo.exe
           castool.exe
