@@ -43,33 +43,20 @@ jobs:
         OVERRIDE_AR: "llvm-ar"
         OVERRIDE_CC: gcc
         OVERRIDE_CXX: g++
-        ARCHOPTS: "-fuse-ld=lld"
+        ARCHOPTS: "-fomit-frame-pointer -fuse-ld=lld"
         SUBTARGET: neogeo
         SOURCES: "src/mame/neogeo"
         OPTIMIZE: 3
         DEPRECATED: 0
         NOWERROR: 1
         TOOLS: 1
-        DEBUG: 0
-      run: make -j9
+        SEPARATE_BIN: 1
+        PTR64: 1
+        SYMBOLS: 1
+        SYMLEVEL: 1
+        TARGET: neogeo
+      run: make -j9 && make -f dist.mak
     - uses: actions/upload-artifact@master
       with:
-        name: neogeo-windows-${{ github.event.inputs.tag_name }}
-        path: |
-          neogeo.exe
-          castool.exe
-          chdman.exe
-          floptool.exe
-          imgtool.exe
-          jedutil.exe
-          ldresample.exe
-          ldverify.exe
-          ledutil.exe
-          nltool.exe
-          nlwav.exe
-          pngcmp.exe
-          regrep.exe
-          romcmp.exe
-          split.exe
-          srcclean.exe
-          unidasm.exe
+        name: neogeo-windows-x64-${{ github.event.inputs.tag_name }}
+        path: ./build/release/x64/Release/neogeo/**/*
