@@ -8,7 +8,7 @@ on:
         required: true
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
 
@@ -24,7 +24,7 @@ jobs:
         install: git make mingw-w64-x86_64-gcc mingw-w64-x86_64-python mingw-w64-x86_64-lld mingw-w64-x86_64-libc++
 
     - name: 签出源码
-      uses: actions/checkout@master
+      uses: actions/checkout@v3
 
     - name: 编译项目
       env:
@@ -43,10 +43,11 @@ jobs:
         PTR64: 1
         SYMBOLS: 1
         SYMLEVEL: 1
-      run: make -j9 && make -f dist.mak TARGET=neogeo
+      run: |
+        make -j9 && make -f dist.mak TARGET=neogeo
 
     - name: 上传资源
-      uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@v3
       with:
         name: neogeo-windows
         path: ./build/release/x64/Release/neogeo/**/*
