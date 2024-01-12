@@ -1,4 +1,4 @@
-name: CI (Windows)
+name: 构建项目
 
 on:
   workflow_dispatch:
@@ -18,11 +18,15 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
-    - uses: msys2/setup-msys2@v2
+    - name: 安装环境
+      uses: msys2/setup-msys2@v2
       with:
         install: git make mingw-w64-x86_64-gcc mingw-w64-x86_64-python mingw-w64-x86_64-lld mingw-w64-x86_64-libc++
-    - uses: actions/checkout@master
-    - name: Build
+
+    - name: 签出源码
+      uses: actions/checkout@master
+
+    - name: 编译项目
       env:
         MINGW64: "/mingw64"
         OVERRIDE_AR: "llvm-ar"
@@ -40,7 +44,9 @@ jobs:
         SYMBOLS: 1
         SYMLEVEL: 1
       run: make -j9 && make -f dist.mak TARGET=neogeo
-    - uses: actions/upload-artifact@master
+
+    - name: 上传资源
+      uses: actions/upload-artifact@master
       with:
         name: neogeo-windows
         path: ./build/release/x64/Release/neogeo/**/*
@@ -49,23 +55,25 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ windows ]
     steps:
-      - uses: actions/download-artifact@v4.1.1
-        with:
-          name: neogeo-windows
-          path: neogeo-windows/
+    - name: 下载资源
+      uses: actions/download-artifact@v3
+      with:
+        name: neogeo-windows
+        path: neogeo-windows/
 
-      - name: Create Asset
-        run: |
-          cd neogeo-windows/ && tar cvfz ../neogeo_${{ github.event.inputs.tag_name }}.tgz ./ && cd -
+    - name: 打包资源
+      run: |
+        cd neogeo-windows/ && tar cvfz ../neogeo_${{ github.event.inputs.tag_name }}.tgz ./ && cd -
 
-      - name: Create and Upload Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          tag_name: ${{ github.ref }}
-          name: Release ${{ github.ref }}
-          body: TODO New Release.
-          draft: false
-          prerelease: false
-          files: |
-            neogeo_${{ github.event.inputs.tag_name }}.tgz
+    - name: 发布版本
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ github.event.inputs.tag_name }}
+        name: server-v${{ github.event.inputs.tag_name }}
+        body: v${{ github.event.inputs.tag_name }} 版本发布
+        draft: false
+        prerelease: false
+        files: |
+          neogeo_${{ github.event.inputs.tag_name }}.tgz
