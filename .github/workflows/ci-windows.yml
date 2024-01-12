@@ -50,7 +50,13 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: neogeo-windows
-        path: ./build/release/x64/Release/neogeo/**/*
+        path:  |
+          ./build/release/x64/Release/neogeo/**/*
+          ./artwork/**/*
+          ./bgfx/**/*
+          ./hlsl/**/*
+          ./plugins/**/*
+          ./samples/**/*
 
   publish:
     runs-on: ubuntu-latest
