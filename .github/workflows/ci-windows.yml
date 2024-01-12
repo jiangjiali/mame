@@ -6,21 +6,6 @@ on:
       tag_name:
         description: 'tag name'
         required: true
-# on:
-#   push:
-#     paths:
-#     - '3rdparty/**'
-#     - 'scripts/**'
-#     - 'src/**'
-#     - 'COPYING'
-#     - 'makefile'
-#   pull_request:
-#     paths:
-#     - '3rdparty/**'
-#     - 'scripts/**'
-#     - 'src/**'
-#     - 'COPYING'
-#     - 'makefile'
 
 permissions:
   contents: read
@@ -64,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ windows ]
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4.1.1
         with:
           name: neogeo-windows
           path: neogeo-windows/
@@ -94,3 +79,5 @@ jobs:
           asset_path: ./neogeo_${{ github.event.inputs.tag_name }}.tgz
           asset_name: neogeo_${{ github.event.inputs.tag_name }}.tgz
           asset_content_type: application/tgz
+
+
