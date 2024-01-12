@@ -58,26 +58,13 @@ jobs:
         run: |
           cd neogeo-windows/ && tar cvfz ../neogeo_${{ github.event.inputs.tag_name }}.tgz ./ && cd -
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create and Upload Release
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.tag_name }}
-          release_name: Tag:${{ github.event.inputs.tag_name }}
+          name: Release ${{ github.event.inputs.tag_name }}
+          body: TODO New Release.
           draft: false
           prerelease: false
-
-      - name: Upload
-        #id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./neogeo_${{ github.event.inputs.tag_name }}.tgz
-          asset_name: neogeo_${{ github.event.inputs.tag_name }}.tgz
-          asset_content_type: application/tgz
-
-
+          files: |
+            neogeo_${{ github.event.inputs.tag_name }}.tgz
