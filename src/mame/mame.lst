@@ -31684,9 +31684,6 @@ version4v                       // (c) 2006 Amcoe
 version4v2                      // (c) 2006 Amcoe
 version4v3                      // (c) 2006 Amcoe
 
-@source:misc/shambros.cpp
-shambros
-
 @source:misc/shangkid.cpp
 chinhero                        // (c) 1984 Taiyo
 chinhero2                       // (c) 1984 Taiyo
@@ -31833,6 +31830,9 @@ stop
 
 @source:misc/strkzn.cpp
 strkzn                          // (c) 1994 Purple Star
+
+@source:misc/sttechno.cpp
+shambros
 
 @source:misc/stuntair.cpp
 stuntair                        // (c) 1983 Nuova Videotron
@@ -36954,6 +36954,7 @@ dd_l2                           //
 dd_lu1                          //
 dd_p6                           //
 diner_f2                        //
+diner_g2                        //
 diner_l1                        //
 diner_l2                        //
 diner_l3                        //
@@ -38735,6 +38736,9 @@ croquisg                        // (c) 1996 Deniam (Germany)
 karianx                         // (c) 1996 Deniam
 logicpr2                        // (c) 1997 Deniam (Japan)
 logicpro                        // (c) 1996 Deniam
+
+@source:sega/digamart.cpp
+digamart
 
 @source:sega/dotrikun.cpp
 dotrikun                        // cabinet test board
@@ -45040,7 +45044,7 @@ evio                            //
 gcslottv                        //
 gungunad                        //
 has_wamg                        //
-hikara							//
+hikara                          //
 jarajal                         //
 jpopira                         //
 ltv_tam                         //
@@ -45936,11 +45940,6 @@ dx11                            //
 @source:yamaha/ymdx100.cpp
 dx100                           //
 
-@source:yamaha/ymmu100.cpp
-mu100                           // 1997 MU-100
-mu100r                          // 1997 MU-100 Rackable version
-mu100b                          // 1998 MU-100B
-
 @source:yamaha/ymmu5.cpp
 mu5                             // 1994 MU-5
 
@@ -45949,6 +45948,14 @@ mu50                            // 1995 MU-50
 
 @source:yamaha/ymmu80.cpp
 mu80                            // 1994 MU-80
+
+@source:yamaha/ymmu90.cpp
+mu90                            // 1996 MU-90
+
+@source:yamaha/ymmu100.cpp
+mu100                           // 1997 MU-100
+mu100r                          // 1997 MU-100 Rackable version
+mu100b                          // 1998 MU-100B
 
 @source:yamaha/ympcs30.cpp
 pcs30                           // 1984
