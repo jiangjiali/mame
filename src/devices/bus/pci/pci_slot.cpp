@@ -12,7 +12,10 @@
 #include "mga2064w.h"
 #include "promotion.h"
 #include "ds2416.h"
+#include "sonicvibes.h"
 #include "sw1000xg.h"
+#include "rtl8029as_pci.h"
+#include "opti82c861.h"
 
 DEFINE_DEVICE_TYPE(PCI_SLOT, pci_slot_device, "pci_slot", "PCI extension motherboard port")
 
@@ -70,6 +73,8 @@ void pci_cards(device_slot_interface &device)
 {
 	// 0x01 - mass storage controllers
 	// 0x02 - network controllers
+	device.option_add("rtl8029as",      RTL8029AS_PCI);
+
 	// 0x03 - display controllers
 	device.option_add("virge",          VIRGE_PCI);
 	device.option_add("virgedx",        VIRGEDX_PCI);
@@ -89,6 +94,7 @@ void pci_cards(device_slot_interface &device)
 	// 0x04 - multimedia controllers
 	device.option_add("sw1000xg",       SW1000XG);
 	device.option_add("ds2416",         DS2416);
+	device.option_add("sonicvibes",     SONICVIBES);
 
 	// 0x05 - memory controllers
 	// 0x06 - bridge devices
@@ -98,6 +104,8 @@ void pci_cards(device_slot_interface &device)
 	// 0x0a - docking stations
 	// 0x0b - processors
 	// 0x0c - Serial Bus controllers
+	device.option_add("opti82c861",     OPTI_82C861);
+
 	// 0x0d - wireless controllers
 	// 0x0e - Intelligent I/O controllers
 	// 0x0f - Satellite Communication controllers
