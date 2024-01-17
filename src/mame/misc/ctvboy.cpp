@@ -6,8 +6,8 @@ Gakken Compact Vision TV Boy (TVボーイ)
 
 Hardware notes:
 - MC6801U4 or HD6801V0P @ 3.57MHz
-- MC6847, MC1372
-- 2KB RAM (HM6116)
+- MC6847P, MC1372P
+- 2KB RAM (HM6116P-4)
 - 1-bit sound with volume decay
 - cartridge slot
 
@@ -80,6 +80,7 @@ private:
 
 	void mc6847_w(u8 data);
 	u8 mc6847_vram_r(offs_t offset);
+	void vblank_irq(int state);
 };
 
 
@@ -147,7 +148,7 @@ void ctvboy_state::p1_w(u8 data)
 
 u8 ctvboy_state::p1_r()
 {
-	// P17: hsync?
+	// P17: MC6847 HS
 	return m_mc6847->hs_r() ? 0 : 0x80;
 }
 
@@ -182,6 +183,12 @@ u8 ctvboy_state::mc6847_vram_r(offs_t offset)
 	return data;
 }
 
+void ctvboy_state::vblank_irq(int state)
+{
+	if (!state)
+		m_maincpu->pulse_input_line(M6801_IRQ_LINE, attotime::from_usec(50));
+}
+
 
 
 /*******************************************************************************
@@ -205,7 +212,7 @@ static INPUT_PORTS_START( ctvboy )
 	PORT_BIT(0x01, IP_ACTIVE_HIGH, IPT_UNUSED)
 	PORT_BIT(0x02, IP_ACTIVE_HIGH, IPT_BUTTON1) // A
 	PORT_BIT(0x04, IP_ACTIVE_HIGH, IPT_BUTTON2) // START / B
-	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_START) PORT_NAME("Pause")
+	PORT_BIT(0x08, IP_ACTIVE_HIGH, IPT_SELECT) PORT_NAME("Pause")
 	PORT_BIT(0x10, IP_ACTIVE_HIGH, IPT_UNUSED)
 
 	PORT_START("IN.1")
@@ -234,7 +241,7 @@ void ctvboy_state::ctvboy(machine_config &config)
 	// video hardware
 	MC6847_NTSC(config, m_mc6847, 3.579545_MHz_XTAL);
 	m_mc6847->input_callback().set(FUNC(ctvboy_state::mc6847_vram_r));
-	m_mc6847->fsync_wr_callback().set_inputline(m_maincpu, 0, HOLD_LINE).invert();
+	m_mc6847->fsync_wr_callback().set(FUNC(ctvboy_state::vblank_irq));
 	m_mc6847->set_screen(m_screen);
 
 	SCREEN(config, m_screen, SCREEN_TYPE_RASTER);
