@@ -2397,6 +2397,25 @@ end
 
 ---------------------------------------------------
 --
+--@src/devices/bus/segaai/segaai_exp.h,BUSES["SEGAAI"] = true
+---------------------------------------------------
+
+if (BUSES["SEGAAI"]~=null) then
+	files {
+		MAME_DIR .. "src/devices/bus/segaai/rom.cpp",
+		MAME_DIR .. "src/devices/bus/segaai/rom.h",
+		MAME_DIR .. "src/devices/bus/segaai/segaai_exp.cpp",
+		MAME_DIR .. "src/devices/bus/segaai/segaai_exp.h",
+		MAME_DIR .. "src/devices/bus/segaai/segaai_slot.cpp",
+		MAME_DIR .. "src/devices/bus/segaai/segaai_slot.h",
+		MAME_DIR .. "src/devices/bus/segaai/soundbox.cpp",
+		MAME_DIR .. "src/devices/bus/segaai/soundbox.h",
+	}
+end
+
+
+---------------------------------------------------
+--
 --@src/devices/bus/spc1000/exp.h,BUSES["SPC1000"] = true
 ---------------------------------------------------
 
@@ -5420,33 +5439,37 @@ if (BUSES["PCI"]~=null) then
 	files {
 		MAME_DIR .. "src/devices/bus/pci/pci_slot.cpp",
 		MAME_DIR .. "src/devices/bus/pci/pci_slot.h",
-		MAME_DIR .. "src/devices/bus/pci/virge_pci.cpp",
-		MAME_DIR .. "src/devices/bus/pci/virge_pci.h",
-		MAME_DIR .. "src/devices/bus/pci/riva128.cpp",
-		MAME_DIR .. "src/devices/bus/pci/riva128.h",
-		MAME_DIR .. "src/devices/bus/pci/rivatnt.cpp",
-		MAME_DIR .. "src/devices/bus/pci/rivatnt.h",
+		MAME_DIR .. "src/devices/bus/pci/aha2940au.cpp",
+		MAME_DIR .. "src/devices/bus/pci/aha2940au.h",
+		MAME_DIR .. "src/devices/bus/pci/audiowerk2.cpp",
+		MAME_DIR .. "src/devices/bus/pci/audiowerk2.h",
+		MAME_DIR .. "src/devices/bus/pci/ds2416.cpp",
+		MAME_DIR .. "src/devices/bus/pci/ds2416.h",
 		MAME_DIR .. "src/devices/bus/pci/geforce.cpp",
 		MAME_DIR .. "src/devices/bus/pci/geforce.h",
 		MAME_DIR .. "src/devices/bus/pci/mga2064w.cpp",
 		MAME_DIR .. "src/devices/bus/pci/mga2064w.h",
+		MAME_DIR .. "src/devices/bus/pci/opti82c861.cpp",
+		MAME_DIR .. "src/devices/bus/pci/opti82c861.h",
 		MAME_DIR .. "src/devices/bus/pci/promotion.cpp",
 		MAME_DIR .. "src/devices/bus/pci/promotion.h",
-		MAME_DIR .. "src/devices/bus/pci/ymp21.cpp",
-		MAME_DIR .. "src/devices/bus/pci/ymp21.h",
-		MAME_DIR .. "src/devices/bus/pci/sw1000xg.cpp",
-		MAME_DIR .. "src/devices/bus/pci/sw1000xg.h",
-		MAME_DIR .. "src/devices/bus/pci/ds2416.cpp",
-		MAME_DIR .. "src/devices/bus/pci/ds2416.h",
-		MAME_DIR .. "src/devices/bus/pci/sonicvibes.cpp",
-		MAME_DIR .. "src/devices/bus/pci/sonicvibes.h",
-		MAME_DIR .. "src/devices/bus/pci/zr36057.cpp",
-		MAME_DIR .. "src/devices/bus/pci/zr36057.h",
+		MAME_DIR .. "src/devices/bus/pci/riva128.cpp",
+		MAME_DIR .. "src/devices/bus/pci/riva128.h",
+		MAME_DIR .. "src/devices/bus/pci/rivatnt.cpp",
+		MAME_DIR .. "src/devices/bus/pci/rivatnt.h",
 		MAME_DIR .. "src/devices/bus/pci/rtl8029as_pci.cpp",
 		MAME_DIR .. "src/devices/bus/pci/rtl8029as_pci.h",
 		MAME_DIR .. "src/devices/bus/pci/rtl8139_pci.cpp",
 		MAME_DIR .. "src/devices/bus/pci/rtl8139_pci.h",
-		MAME_DIR .. "src/devices/bus/pci/opti82c861.cpp",
-		MAME_DIR .. "src/devices/bus/pci/opti82c861.h",
+		MAME_DIR .. "src/devices/bus/pci/sonicvibes.cpp",
+		MAME_DIR .. "src/devices/bus/pci/sonicvibes.h",
+		MAME_DIR .. "src/devices/bus/pci/sw1000xg.cpp",
+		MAME_DIR .. "src/devices/bus/pci/sw1000xg.h",
+		MAME_DIR .. "src/devices/bus/pci/virge_pci.cpp",
+		MAME_DIR .. "src/devices/bus/pci/virge_pci.h",
+		MAME_DIR .. "src/devices/bus/pci/ymp21.cpp",
+		MAME_DIR .. "src/devices/bus/pci/ymp21.h",
+		MAME_DIR .. "src/devices/bus/pci/zr36057.cpp",
+		MAME_DIR .. "src/devices/bus/pci/zr36057.h",
 	}
 end
