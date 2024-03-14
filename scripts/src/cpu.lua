@@ -651,14 +651,14 @@ if CPUS["G65816"] then
 	files {
 		MAME_DIR .. "src/devices/cpu/g65816/g65816.cpp",
 		MAME_DIR .. "src/devices/cpu/g65816/g65816.h",
+		MAME_DIR .. "src/devices/cpu/g65816/g65816cm.h",
+		MAME_DIR .. "src/devices/cpu/g65816/g65816ds.h",
 		MAME_DIR .. "src/devices/cpu/g65816/g65816o0.cpp",
 		MAME_DIR .. "src/devices/cpu/g65816/g65816o1.cpp",
 		MAME_DIR .. "src/devices/cpu/g65816/g65816o2.cpp",
 		MAME_DIR .. "src/devices/cpu/g65816/g65816o3.cpp",
 		MAME_DIR .. "src/devices/cpu/g65816/g65816o4.cpp",
-		MAME_DIR .. "src/devices/cpu/g65816/g65816cm.h",
-		MAME_DIR .. "src/devices/cpu/g65816/g65816ds.h",
-		MAME_DIR .. "src/devices/cpu/g65816/g65816op.h",
+		MAME_DIR .. "src/devices/cpu/g65816/g65816op.ipp",
 	}
 end
 
@@ -701,8 +701,6 @@ if CPUS["H8"] then
 		MAME_DIR .. "src/devices/cpu/h8/h8s2600.h",
 		MAME_DIR .. "src/devices/cpu/h8/h8325.cpp",
 		MAME_DIR .. "src/devices/cpu/h8/h8325.h",
-		MAME_DIR .. "src/devices/cpu/h8/h83337.cpp",
-		MAME_DIR .. "src/devices/cpu/h8/h83337.h",
 		MAME_DIR .. "src/devices/cpu/h8/h83002.cpp",
 		MAME_DIR .. "src/devices/cpu/h8/h83002.h",
 		MAME_DIR .. "src/devices/cpu/h8/h83003.cpp",
@@ -717,10 +715,16 @@ if CPUS["H8"] then
 		MAME_DIR .. "src/devices/cpu/h8/h83042.h",
 		MAME_DIR .. "src/devices/cpu/h8/h83048.cpp",
 		MAME_DIR .. "src/devices/cpu/h8/h83048.h",
+		MAME_DIR .. "src/devices/cpu/h8/h83217.cpp",
+		MAME_DIR .. "src/devices/cpu/h8/h83217.h",
+		MAME_DIR .. "src/devices/cpu/h8/h83337.cpp",
+		MAME_DIR .. "src/devices/cpu/h8/h83337.h",
 		MAME_DIR .. "src/devices/cpu/h8/h8s2245.cpp",
 		MAME_DIR .. "src/devices/cpu/h8/h8s2245.h",
-		MAME_DIR .. "src/devices/cpu/h8/h8s2320.cpp",
-		MAME_DIR .. "src/devices/cpu/h8/h8s2320.h",
+		MAME_DIR .. "src/devices/cpu/h8/h8s2319.cpp",
+		MAME_DIR .. "src/devices/cpu/h8/h8s2319.h",
+		MAME_DIR .. "src/devices/cpu/h8/h8s2329.cpp",
+		MAME_DIR .. "src/devices/cpu/h8/h8s2329.h",
 		MAME_DIR .. "src/devices/cpu/h8/h8s2357.cpp",
 		MAME_DIR .. "src/devices/cpu/h8/h8s2357.h",
 		MAME_DIR .. "src/devices/cpu/h8/h8s2655.cpp",
@@ -897,8 +901,14 @@ if CPUS["SH"] then
 		MAME_DIR .. "src/devices/cpu/sh/sh7032.h",
 		MAME_DIR .. "src/devices/cpu/sh/sh7042.cpp",
 		MAME_DIR .. "src/devices/cpu/sh/sh7042.h",
-		MAME_DIR .. "src/devices/cpu/sh/sh_adc.h",
 		MAME_DIR .. "src/devices/cpu/sh/sh_adc.cpp",
+		MAME_DIR .. "src/devices/cpu/sh/sh_adc.h",
+		MAME_DIR .. "src/devices/cpu/sh/sh_cmt.cpp",
+		MAME_DIR .. "src/devices/cpu/sh/sh_cmt.h",
+		MAME_DIR .. "src/devices/cpu/sh/sh_intc.cpp",
+		MAME_DIR .. "src/devices/cpu/sh/sh_intc.h",
+		MAME_DIR .. "src/devices/cpu/sh/sh_port.cpp",
+		MAME_DIR .. "src/devices/cpu/sh/sh_port.h",
 		MAME_DIR .. "src/devices/cpu/sh/sh7604_bus.cpp",
 		MAME_DIR .. "src/devices/cpu/sh/sh7604_bus.h",
 		MAME_DIR .. "src/devices/cpu/sh/sh7604_sci.cpp",
@@ -2943,6 +2953,8 @@ local want_disasm_z80  = opt_tool(CPUS, "Z80")
 local want_disasm_kc80 = opt_tool(CPUS, "KC80")
 
 if want_disasm_z80 or want_disasm_kc80 then
+	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/z80/r800dasm.cpp")
+	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/z80/r800dasm.h")
 	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/z80/z80dasm.cpp")
 	table.insert(disasm_files , MAME_DIR .. "src/devices/cpu/z80/z80dasm.h")
 end

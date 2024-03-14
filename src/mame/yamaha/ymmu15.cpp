@@ -34,19 +34,21 @@ public:
 	mu15_state(const machine_config &mconfig, device_type type, const char *tag)
 		: driver_device(mconfig, type, tag)
 		, m_maincpu(*this, "maincpu")
-			  //		, m_nvram(*this, "ram")
+		//, m_nvram(*this, "ram")
 		, m_lcd(*this, "lcd")
-		, m_ram(*this, "ram")
+		, m_ram1(*this, "ram1")
+		, m_ram2(*this, "ram2")
 	{ }
 
 	void mu15(machine_config &config);
 
 private:
 	required_device<swx00_device> m_maincpu;
-	//	required_device<nvram_device> m_nvram;
-	//	required_device<swp00_device> m_swp00;
+	//  required_device<nvram_device> m_nvram;
+	//  required_device<swp00_device> m_swp00;
 	required_device<mu5lcd_device> m_lcd;
-	required_shared_ptr<u16> m_ram;
+	required_shared_ptr<u16> m_ram1;
+	required_shared_ptr<u16> m_ram2;
 
 	void c_map(address_map &map);
 	void s_map(address_map &map);
@@ -66,8 +68,9 @@ void mu15_state::machine_reset()
 void mu15_state::s_map(address_map &map)
 {
 	map(0x000000, 0x3fffff).rom().region("swx00", 0);
-	map(0x400000, 0x40ffff).ram().share(m_ram);
-	//	map(0x400000, 0x4007ff).m(m_swp00, FUNC(swp00_device::map));
+	map(0x400000, 0x40ffff).ram().share(m_ram1);
+	map(0xc00000, 0xc03fff).ram().share(m_ram2);
+	//  map(0x400000, 0x4007ff).m(m_swp00, FUNC(swp00_device::map));
 }
 
 void mu15_state::c_map(address_map &map)
@@ -103,10 +106,10 @@ u16 mu15_state::adc_battery_r()
 	return 0x200;
 }
 
-void mu15_state::p6_w(u16 data)
+void mu15_state::p6_w(u8 data)
 {
 	data ^= P6_LCD_ENABLE;
-	if(!(cur_p6 & P6_LCD_ENABLE) && (data & P6_LCD_ENABLE)) {
+	if((cur_p6 & P6_LCD_ENABLE) && !(data & P6_LCD_ENABLE)) {
 		if(!(cur_p6 & P6_LCD_RW)) {
 			if(cur_p6 & P6_LCD_RS)
 				m_lcd->data_write(cur_pa);
@@ -118,32 +121,32 @@ void mu15_state::p6_w(u16 data)
 	cur_p6 = data;
 }
 
-u16 mu15_state::p6_r()
+u8 mu15_state::p6_r()
 {
 	return cur_p6;
 }
 
-u16 mu15_state::pb_r()
+u8 mu15_state::pb_r()
 {
 	return cur_pb;
 }
 
-void mu15_state::pb_w(u16 data)
+void mu15_state::pb_w(u8 data)
 {
 	cur_pb = data;
 }
 
-void mu15_state::pa_w(u16 data)
+void mu15_state::pa_w(u8 data)
 {
 	cur_pa = data;
 }
 
-void mu15_state::pc_w(u16 data)
+void mu15_state::pc_w(u8 data)
 {
 	cur_pc = data;
 }
 
-u16 mu15_state::pa_r()
+u8 mu15_state::pa_r()
 {
 	if((cur_p6 & P6_LCD_ENABLE)) {
 		if(cur_p6 & P6_LCD_RW)
@@ -158,9 +161,9 @@ u16 mu15_state::pa_r()
 	return cur_pa;
 }
 
-u16 mu15_state::pc_r()
+u8 mu15_state::pc_r()
 {
-	u16 res = cur_pc | 0x7c;
+	u8 res = cur_pc | 0x7c;
 	if(!(cur_pc & 0x01))
 		res &= m_ioport_o0->read();
 	if(!(cur_pc & 0x02))
@@ -177,9 +180,9 @@ void mu15_state::mu15(machine_config &config)
 	m_maincpu->set_addrmap(m_maincpu->c_bus_id(), &mu15_state::c_map);
 	m_maincpu->set_addrmap(m_maincpu->s_bus_id(), &mu15_state::s_map);
 
-	//	m_maincpu->read_porta().set(FUNC(mu15_state::pa_r));
-	//	m_maincpu->read_portb().set(FUNC(mu15_state::pa_r));
-	//	m_maincpu->write_portb().set(FUNC(mu15_state::pa_w));
+	//  m_maincpu->read_porta().set(FUNC(mu15_state::pa_r));
+	//  m_maincpu->read_portb().set(FUNC(mu15_state::pa_r));
+	//  m_maincpu->write_portb().set(FUNC(mu15_state::pa_w));
 
 #if 0
 	m_maincpu->read_adc<0>().set(FUNC(mu15_state::adc_ar_r));
@@ -203,7 +206,7 @@ void mu15_state::mu15(machine_config &config)
 	m_maincpu->read_port9().set_constant(0);
 #endif
 
-	//	NVRAM(config, m_nvram, nvram_device::DEFAULT_NONE);
+	//  NVRAM(config, m_nvram, nvram_device::DEFAULT_NONE);
 
 	MU5LCD(config, m_lcd);
 
@@ -230,4 +233,4 @@ ROM_END
 } // anonymous namespace
 
 
-CONS( 1998, mu15, 0, 0, mu15,  mu15, mu15_state, empty_init, "Yamaha", "MU15", 0 )
+CONS( 1998, mu15, 0, 0, mu15,  mu15, mu15_state, empty_init, "Yamaha", "MU15", MACHINE_NOT_WORKING )
