@@ -439,7 +439,8 @@ mpc60
 mpc3000
 
 @source:alba/albazg.cpp
-yumefuda                        // (c) 198? Alba
+hana6pt2                        // (c) 1991 Alba
+yumefuda                        // (c) 1991 Alba
 
 @source:alba/rmhaihai.cpp
 rmhaihai                        // (c) 1985 Alba
@@ -29104,6 +29105,7 @@ ddz                             // 200?
 
 @source:misc/dfruit.cpp
 dfruit                          //
+dfruita                         //
 gemcrush
 
 @source:misc/dgpix.cpp
