@@ -30,9 +30,9 @@ protected:
 	virtual void recompute_params() override;
 
 	u8 m_ramdac_mode = 0;
-	u8 m_ext_misc_ctrl[3]{};
+	u8 m_ext_misc_ctrl[10]{};
 	//u16 m_ext_config_status = 0;
-	u8 m_ext_scratch[2]{};
+	u8 m_ext_scratch[5]{};
 	u8 m_ext_vert_overflow = 0;
 	u8 m_ext_horz_overflow[2]{};
 	u8 m_bus_width = 0;
@@ -52,8 +52,8 @@ public:
 	sis630_vga_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
 protected:
-//	virtual void device_start() override;
-//	virtual void device_reset() override;
+//  virtual void device_start() override;
+//  virtual void device_reset() override;
 
 	virtual void crtc_map(address_map &map) override;
 	virtual void sequencer_map(address_map &map) override;
