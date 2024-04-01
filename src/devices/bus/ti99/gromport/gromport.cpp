@@ -127,7 +127,7 @@ namespace bus::ti99::gromport {
 
 gromport_device::gromport_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock)
 	:   device_t(mconfig, TI99_GROMPORT, tag, owner, clock),
-		device_slot_interface(mconfig, *this),
+		device_single_card_slot_interface<cartridge_connector_device>(mconfig, *this),
 		m_connector(nullptr),
 		m_reset_on_insert(true),
 		m_console_ready(*this),
@@ -205,8 +205,9 @@ void gromport_device::set_gromlines(line_state mline, line_state moline, line_st
 
 void gromport_device::device_start()
 {
-
 	save_item(NAME(m_romgq));
+	if (m_connector != nullptr)
+		m_connector->set_port(this);
 }
 
 void gromport_device::device_reset()
@@ -244,12 +245,7 @@ bool gromport_device::is_grom_idle()
 
 void gromport_device::device_config_complete()
 {
-	if (subdevices().first() != nullptr)
-	{
-		m_connector = dynamic_cast<cartridge_connector_device*>(subdevices().first());
-		if (m_connector == nullptr)
-			throw emu_fatalerror("gromport_device: cartridge connector not found");
-	}
+	m_connector = get_card_device();
 }
 
 INPUT_PORTS_START(gromport)
@@ -284,12 +280,6 @@ cartridge_connector_device::cartridge_connector_device(const machine_config &mco
 void  cartridge_connector_device::ready_line(int state)
 {
 	m_gromport->ready_line(state);
-}
-
-void cartridge_connector_device::device_config_complete()
-{
-	m_gromport = dynamic_cast<gromport_device*>(owner());
-	// owner is the empty_state during -listxml, so this will be nullptr
 }
 
 } // end namespace bus::ti99::gromport

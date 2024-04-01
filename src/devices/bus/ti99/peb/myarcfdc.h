@@ -41,7 +41,6 @@ public:
 private:
 	void device_start() override;
 	void device_reset() override;
-	void device_config_complete() override;
 
 	const tiny_rom_entry *device_rom_region() const override;
 	void device_add_mconfig(machine_config &config) override;
@@ -86,7 +85,7 @@ private:
 	uint8_t* m_dsrrom;
 
 	// Link to the attached floppy drives
-	floppy_image_device*    m_floppy[4];
+	required_device_array<floppy_connector, 4> m_floppy;
 
 	// Debugger accessors
 	void debug_read(offs_t offset, uint8_t* value);
@@ -111,6 +110,8 @@ private:
 // =========== Decoder PAL circuit ================
 class ddcc1_pal_device : public device_t
 {
+	friend class myarc_fdc_device;
+	
 public:
 	ddcc1_pal_device(const machine_config &mconfig, const char *tag, device_t *owner, uint32_t clock);
 
@@ -122,10 +123,9 @@ public:
 	bool cs259();
 
 private:
-	void device_start() override { }
-	void device_config_complete() override;
-
+	void device_start() override { }	
 	myarc_fdc_device* m_board;
+	void set_board(myarc_fdc_device* board) { m_board = board; }
 };
 
 } // end namespace bus::ti99::peb

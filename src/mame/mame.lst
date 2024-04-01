@@ -19798,6 +19798,9 @@ husky                           // DVW Husky
 @source:ibm/ibm3153.cpp
 ibm3153                         //
 
+@source:ibm/ibm5100.cpp
+ibm5100
+
 @source:ibm/ibm5550.cpp
 ibm5550                         //
 
@@ -29055,6 +29058,7 @@ luckyrlt                        // (c) 1990 unknown
 rcirulet                        // (c) 199? Entretenimientos GEMINIS
 re800ea                         // (c) 1991 Entretenimientos GEMINIS
 re800v1                         // (c) 1991 Entretenimientos GEMINIS
+re800v1a                        // (c) 1991 Entretenimientos GEMINIS
 re800v3                         // (c) 1992 Entretenimientos GEMINIS
 winner81                        // (c) 1981 Corona Co, Ltd.
 winner81b                       // (c) 1981 Corona Co, Ltd.
@@ -35224,6 +35228,7 @@ mspacmanbi                      // bootleg
 mspacmanblt                     // bootleg
 mspacmanblt2                    // bootleg
 mspacmancr                      // bootleg on Crush Roller board
+mspacmanhnc                     // hack
 mspacmanlai                     // bootleg
 mspacmat                        // hack
 mspacmbe                        // bootleg
