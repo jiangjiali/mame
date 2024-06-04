@@ -30,7 +30,7 @@ Battle Gear 3 (Japan)........................... XX34XXX  M9005793A VER.2.04J  H
 Battle Gear 3 (Export).......................... XX34XXX  M9005793A VER.2.04J  HDD (20GB)   NM00010  *B3900068A(?)           Taito 2002                     | All require Taito JVS Universal I/O board K91X0951A otherwise no boot-up; dongle selects region using same HDDs
 Battle Gear 3 (US).............................. ------X *?                    HDD (20GB)   NM00010? *?                      Taito 2002                     | 2004 Betson release; contrary to flyer, does *not* remove Honda cars (contrast sidebs2u/batlgear)
 Battle Gear 3 Tuned (Japan)..................... XX34XXX  M9006066A VER.2.03J  HDD (30GB)   NM00015  *B3900074B              Taito 2003                     | HDD: Maxtor Fireball 3 30GB 2F030L0
-Battle Gear 3 Tuned (Export).................... XX34XXX  M9006066A VER.2.03J  HDD (30GB)   NM00015   B3900074C              Taito 2003                    /  
+Battle Gear 3 Tuned (Export).................... XX34XXX  M9006066A VER.2.03J  HDD (30GB)   NM00015   B3900074C              Taito 2003                    /
 Bloody Roar 3................................... 1234XXX  BRT1-A               CD           NM00002   BRT1 Ver.A             Namco/8ing/Raizing 2000
 Capcom Fighting Jam/Capcom Fighting Evolution... XXXX56X  JAM1 DVD0            DVD          NM00018   JAM1 Ver.A             Capcom 2004
 Cobra The Arcade................................ XXXX56X  CBR1-HA              HDD (40GB)   NM00021   CBR1 Ver.B             Namco 2004                    Requires RAYS I/O PCB and IR guns and IR sensors. HDD: Maxtor DiamondMax Plus 8 40GB 6E040L0
@@ -70,8 +70,8 @@ Smash Court Pro Tournament...................... ------X  SCP1 CD0             C
 Soul Calibur II................................. 123456X  SC21 DVD0            DVD          NM00007   SC21 Ver.A             Namco 2002                    \
    "            Rev. B.......................... 123456X  SC21 DVD0B           DVD          NM00007   SC23 Ver.A             Namco 2002                    | # @ 1st & rev B DVD needs campaign memory card
    "            Rev. D.......................... 123456X  SC21 DVD0D           DVD          NM00007   SC22 Ver.D             Namco 2002                    /     rev D will allow skipping it if not available
-Soul Calibur III Arcade Edition................. 123456X  SC31001-NA-DVD0-A    DVD          NM00031   SC31001-NA-A           Namco 2005                    \
-   "                           ................. 123456X  SC31001-NA-DVD0-B    DVD          NM00031   SC31001-NA-A           Namco 2005                    / # % @
+Soul Calibur III Arcade Edition................. 123456X  SC31001-NA-DVD0-A    DVD          NM00031   SC31001-NA-A           Namco 2006                    \
+   "                           ................. 123456X  SC31001-NA-DVD0-B    DVD          NM00031   SC31001-NA-A           Namco 2006                    / # % @
 Sukusuku Inufuku 2 / The Dog Luck 2............. 123456X  HM-IN2               CD           NM00037   IN2 Ver.A              Hampster/Video System 2007
 Super Dragon Ball Z / Chou Dragon Ball Z........ XXXX56X  DB1                  DVD          NM00027   DB1 Ver.B              Banpresto 2005
 Taiko no Tatsujin 7............................. ------X  TK71 DVD0            DVD          NM00023   TK71 Ver.A             Namco 2005
@@ -1731,9 +1731,9 @@ GAME(2004, zgundmdx,   sys246, system246, system246, namcops2_state, empty_init,
 GAME(2004, zoidsinf,   sys246, system246, system246, namcops2_state, empty_init, ROT0, "Tomy / Taito", "Zoids Infinity", MACHINE_IS_SKELETON)
 GAME(2005, cobrata,    sys246, system246, system246, namcops2_state, empty_init, ROT0, "Namco", "Cobra: The Arcade (CBR1 Ver. B)", MACHINE_IS_SKELETON)
 GAME(2005, gundzaft,   sys246, system246, system246, namcops2_state, empty_init, ROT0, "Capcom / Banpresto", "Gundam Seed: Federation vs. Z.A.F.T. (SED1 Ver. A)", MACHINE_IS_SKELETON)
-GAME(2005, soulclb3,   sys246, system246, system246, namcops2_state, empty_init, ROT0, "Namco", "Soul Calibur III (SC31001-NA-A key, NA-B disc)", MACHINE_IS_SKELETON)
-GAME(2005, soulclb3a,soulclb3, system246, system246, namcops2_state, empty_init, ROT0, "Namco", "Soul Calibur III (SC31002-NA-A key, NA-B disc)", MACHINE_IS_SKELETON)
-GAME(2005, soulclb3b,soulclb3, system246, system246, namcops2_state, empty_init, ROT0, "Namco", "Soul Calibur III (SC31002-NA-A key, NA-A disc)", MACHINE_IS_SKELETON)
+GAME(2006, soulclb3,   sys246, system246, system246, namcops2_state, empty_init, ROT0, "Namco", "Soul Calibur III: Arcade Edition (SC31001-NA-A key, NA-B disc)", MACHINE_IS_SKELETON)
+GAME(2006, soulclb3a,soulclb3, system246, system246, namcops2_state, empty_init, ROT0, "Namco", "Soul Calibur III: Arcade Edition (SC31002-NA-A key, NA-B disc)", MACHINE_IS_SKELETON)
+GAME(2006, soulclb3b,soulclb3, system246, system246, namcops2_state, empty_init, ROT0, "Namco", "Soul Calibur III: Arcade Edition (SC31002-NA-A key, NA-A disc)", MACHINE_IS_SKELETON)
 GAME(2005, taiko7,     sys246, system246, system246, namcops2_state, empty_init, ROT0, "Namco", "Taiko no Tatsujin 7 (TK71-NA-A)", MACHINE_IS_SKELETON)
 GAME(2006, taiko8,     sys246, system246, system246, namcops2_state, empty_init, ROT0, "Namco", "Taiko no Tatsujin 8 (TK8100-1-NA-A)", MACHINE_IS_SKELETON)
 GAME(2006, qgundam,    sys246, system246, system246, namcops2_state, empty_init, ROT0, "Namco", "Quiz Mobile Suit Gundam: Monsenshi (QG1 Ver. A)", MACHINE_IS_SKELETON)
