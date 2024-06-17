@@ -72,27 +72,34 @@ class Opcode:
                 il.print("m_icount -= %s;" % (" ".join(tokens[1:])), f)
                 step += 1
                 to_step = "0x%s" % (hex(256 + step)[3:])
-                il.print("if (check_icount(%s, 0, false)) return;" % (to_step), f)
-                print("\t\t[[fallthrough]];", file=f)
+                il.print("if (m_icount <= 0) {", f)
+                il.print("	m_ref = (m_ref & 0xffff00) | %s;" % (to_step), f)
+                il.print("	return;", f)
+                il.print("}", f)
+                il.print("[[fallthrough]];", f)
                 print("\t\tcase %s:" % (to_step), file=f)
             elif (len(tokens) > 2 and tokens[1] == "!!"):
-                print("\t\t[[fallthrough]];", file=f)
+                il.print("[[fallthrough]];", f)
                 step += 1;
                 print("\t\tcase 0x%s:" % (hex(256 + step)[3:]), file=f)
-                il.print("{", f)
-                il.print("\tconst int icount = m_icount;", f)
-                il.print("\t%s" % " ".join(tokens[2:]), f)
-                il.print("\tm_icount -= %s;" % (tokens[0]), f)
+                il.print("%s" % " ".join(tokens[2:]), f)
+                il.print("m_icount -= %s;" % (tokens[0]), f)
+                il.print("if (m_icount <= 0) {", f)
+                il.print("	if (access_to_be_redone()) {", f)
+                il.print("		m_icount += %s;" % (tokens[0]), f)
+                il.print("		m_ref = (m_ref & 0xffff00) | 0x%s;" % (hex(256 + step)[3:]), f)
+                il.print("	} else", f)
                 step += 1
                 to_step = "0x%s" % (hex(256 + step)[3:])
-                il.print("\tif (check_icount(%s, icount, true)) return;" % (to_step), f)
+                il.print("		m_ref = (m_ref & 0xffff00) | %s;" % (to_step), f)
+                il.print("	return;", f)
                 il.print("}", f)
-                print("\t\t[[fallthrough]];", file=f)
+                il.print("[[fallthrough]];", f)
                 print("\t\tcase %s:" % (to_step), file=f)
             else:
                 il.print("%s" % line, f)
         if has_steps:
-            print("\t\tbreak;\n", file=f)
+            print("\t\t\tbreak;\n", file=f)
             print("\t\t}", file=f)
 
 class Macro:
@@ -139,24 +146,52 @@ class OpcodeList:
                 # New opcode
                 tokens = line.split()
                 if tokens[0] == "macro":
-                    name = tokens[1]
                     arg_name = None
                     if len(tokens) > 2:
                         arg_name = tokens[2]
-                    inf = Macro(name, arg_name)
-                    if name in self.macros:
-                        sys.stderr.write("Replacing macro: %s\n" % name)
-                    self.macros[name] = inf
+                    nnames = tokens[1].split(":")
+                    if len(nnames) == 2:
+                        inf = Macro(nnames[1], arg_name)
+                        if nnames[0] == self.gen:
+                            self.macros[nnames[1]] = inf
+                    else:
+                        inf = Macro(nnames[0], arg_name)
+                        if None == self.gen:
+                            if nnames[0] in self.macros:
+                                sys.stderr.write("Replacing macro: %s\n" % nnames[0])
+                            self.macros[nnames[0]] = inf
+                        else:
+                            if not nnames[0] in self.macros:
+                                self.macros[nnames[0]] = inf
                 else:
                     ntokens = tokens[0].split(":")
                     if len(ntokens) == 2:
                         inf = Opcode(ntokens[1])
                         if ntokens[0] == self.gen:
-                            self.opcode_info.append(inf)
+                            # Replace in list when already present, otherwise append
+                            found = False
+                            found_index = 0
+                            for i in range(len(self.opcode_info)):
+                                if self.opcode_info[i].code == inf.code:
+                                    found = True
+                                    found_index = i
+                            if found:
+                                self.opcode_info[found_index] = inf
+                            else:
+                                self.opcode_info.append(inf)
                     else:
                         inf = Opcode(ntokens[0])
                         if None == self.gen:
                             self.opcode_info.append(inf)
+                        else:
+                            # Only place in list when not already present
+                            found = False
+                            for i in range(len(self.opcode_info)):
+                                if self.opcode_info[i].code == inf.code:
+                                    found = True
+                            if not found:
+                                self.opcode_info.append(inf)
+
 
     def pre_process(self, iline):
         out = []
@@ -191,7 +226,7 @@ class OpcodeList:
             if (opc.code[:2]) != prefix:
                 if prefix is not None:
                     print("\n\t}", file=f)
-                    print("\tbreak;", file=f)
+                    print("\t\tbreak;", file=f)
                     print("", file=f)
                     print("}", file=f)
                     print("break; // prefix: 0x%s" % (prefix), file=f)
@@ -205,13 +240,15 @@ class OpcodeList:
             #print("\t{", file=f)
             opc.save_dasm(f)
             #print("\t}", file=f)
-            print("\tbreak;", file=f)
+            print("\t\tbreak;", file=f)
             print("", file=f)
         print("\t} // switch opcode", file=f)
         print("}", file=f)
         print("break; // prefix: 0x%s" % (prefix), file=f)
         print("", file=f)
         print("} // switch prefix", file=f)
+        print("", file=f)
+        print("m_ref = 0xffff00;", file=f)
 
 def main(argv):
     if len(argv) != 3 and len(argv) != 4:

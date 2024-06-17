@@ -43,6 +43,7 @@ public:
 	auto refresh_cb() { return m_refresh_cb.bind(); }
 	auto nomreq_cb() { return m_nomreq_cb.bind(); }
 	auto halt_cb() { return m_halt_cb.bind(); }
+	auto busack_cb() { return m_busack_cb.bind(); }
 
 protected:
 	z80_device(const machine_config &mconfig, device_type type, const char *tag, device_t *owner, u32 clock);
@@ -113,9 +114,7 @@ protected:
 	void set_f(u8 f);
 	void block_io_interrupted_flags();
 
-	virtual void do_rop();
 	virtual void do_op();
-	bool check_icount(u8 to_step, int icount_saved, bool redonable);
 
 	virtual u8 data_read(u16 addr);
 	virtual void data_write(u16 addr, u8 value);
@@ -135,6 +134,7 @@ protected:
 	devcb_write8 m_refresh_cb;
 	devcb_write8 m_nomreq_cb;
 	devcb_write_line m_halt_cb;
+	devcb_write_line m_busack_cb;
 
 	PAIR         m_prvpc;
 	PAIR         m_pc;
@@ -159,11 +159,12 @@ protected:
 	u8           m_halt;
 	u8           m_im;
 	u8           m_i;
-	u8           m_nmi_state;          // nmi line state
+	u8           m_nmi_state;          // nmi pin state
 	u8           m_nmi_pending;        // nmi pending
-	u8           m_irq_state;          // irq line state
-	int          m_wait_state;         // wait line state
-	int          m_busrq_state;        // bus request line state
+	u8           m_irq_state;          // irq pin state
+	int          m_wait_state;         // wait pin state
+	int          m_busrq_state;        // bus request pin state
+	u8           m_busack_state;       // bus acknowledge pin state
 	u8           m_after_ei;           // are we in the EI shadow?
 	u8           m_after_ldair;        // same, but for LD A,I or LD A,R
 	u32          m_ea;
@@ -175,11 +176,19 @@ protected:
 	PAIR16       m_shared_data2;
 	u8           m_rtemp;
 
-	bool m_redone;
 	u32 m_ref;
 	u8 m_m1_cycles;
 	u8 m_memrq_cycles;
 	u8 m_iorq_cycles;
+
+	static std::unique_ptr<u8[]> SZ;       // zero and sign flags
+	static std::unique_ptr<u8[]> SZ_BIT;   // zero, sign and parity/overflow (=zero) flags for BIT opcode
+	static std::unique_ptr<u8[]> SZP;      // zero, sign and parity flags
+	static std::unique_ptr<u8[]> SZHV_inc; // zero, sign, half carry and overflow flags INC r8
+	static std::unique_ptr<u8[]> SZHV_dec; // zero, sign, half carry and overflow flags DEC r8
+
+	static std::unique_ptr<u8[]> SZHVC_add;
+	static std::unique_ptr<u8[]> SZHVC_sub;
 };
 
 DECLARE_DEVICE_TYPE(Z80, z80_device)
@@ -198,7 +207,7 @@ protected:
 	virtual u32 execute_input_lines() const noexcept override { return 7; }
 	virtual void execute_set_input(int inputnum, int state) override;
 
-	virtual void do_rop() override;
+	virtual void do_op() override;
 	u8 m_nsc800_irq_state[4]; // state of NSC800 restart interrupts A, B, C
 };
 
