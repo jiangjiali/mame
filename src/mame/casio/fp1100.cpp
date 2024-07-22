@@ -2,23 +2,24 @@
 // copyright-holders:Angelo Salese
 /**************************************************************************************************
 
-Casio FP-1100 (GX-205)
+Casio FP-1000 / FP-1100 (GX-205)
 
 TODO:
 - Keyboard not working, should trigger INTF0 on key pressed (for PF only), main CPU receives
   garbage from sub (command protocol 0x04 -> <scancode> -> 0x00 -> 0x00)
+  As a _ugly_ workaround you can intercept ASCII scancodes from main CPU with bp d18 A=<value> with
+  any emu::keypost trigger.
 - Memory maps and machine configuration for FP-1000 with reduced VRAM;
 - Unimplemented instruction PER triggered in sub CPU;
 - SCREEN 1 mode has heavy corrupted GFXs and runs at half speed, interlace mode?
 - Cassette Load is really not working, uses a complex 6 pin discrete circuitry;
 - Sub CPU needs proper WAIT line from uPD7801;
 - Main CPU waitstates;
-- bus slots (FP-1060I/O, 1 slot can take up to 4 sub slots below):
-  - FP-1020FD (FDC uPD765, 2x 5.25 floppy DSDD, id = 0x04)
-  - FP-1030 (RAMPACK, id = 0x01)
-  - FP-1031 (ROMPACK, id = 0x00)
-  - FP-1035RS (RS-232C, id = 0x02)
-  - One of the ROMPACKs has undumped Test Mode (cfr. page 94 of service manual)
+- centronics options (likely):
+  - FP-1011PL (plotter)
+  - FP-1012PR (OEM Epson MX-80)
+  - FP-1014PRK (Kanji printer)
+  - FP-1017PR (OEM Epson MX-160)
 
 ===================================================================================================
 
@@ -46,10 +47,12 @@ The keyboard is a separate unit.  It contains a beeper.
 #include "emu.h"
 
 #include "bus/centronics/ctronics.h"
+#include "bus/fp1000/fp1000_exp.h"
 #include "cpu/upd7810/upd7810.h"
 #include "cpu/z80/z80.h"
 #include "imagedev/cassette.h"
 #include "machine/gen_latch.h"
+#include "machine/input_merger.h"
 #include "machine/timer.h"
 #include "sound/beep.h"
 #include "video/mc6845.h"
@@ -84,6 +87,8 @@ public:
 		, m_beep(*this, "beeper")
 		, m_centronics(*this, "centronics")
 		, m_cassette(*this, "cassette")
+		, m_slot(*this, "slot.%u", 0)
+		, m_irqs_int(*this, { "irqs_inta", "irqs_intb", "irqs_intc", "irqs_intd"})
 	{ }
 
 	void fp1100(machine_config &config);
@@ -105,6 +110,8 @@ private:
 	required_device<beep_device> m_beep;
 	required_device<centronics_device> m_centronics;
 	required_device<cassette_image_device> m_cassette;
+	required_device_array<fp1000_exp_slot_device, 2> m_slot;
+	required_device_array<input_merger_device, 4> m_irqs_int;
 
 	void main_map(address_map &map);
 	void io_map(address_map &map);
@@ -202,7 +209,9 @@ other bits not used
 void fp1100_state::main_bank_w(u8 data)
 {
 	m_iplview.select(BIT(data, 1));
-//  m_slot_num = (m_slot_num & 3) | ((data & 1) << 2); //??
+	const u8 slot_select = BIT(data, 0);
+	m_slot[slot_select ^ 1]->select_w(false);
+	m_slot[slot_select]->select_w(true);
 }
 
 /*
@@ -764,9 +773,39 @@ void fp1100_state::fp1100(machine_config &config)
 	SPEAKER(config, "mono").front_center();
 	BEEP(config, "beeper", 950) // guess
 		.add_route(ALL_OUTPUTS, "mono", 0.50); // inside the keyboard
+
+	INPUT_MERGER_ANY_HIGH(config, m_irqs_int[0]).output_handler().set(FUNC(fp1100_state::int_w<0>));
+	INPUT_MERGER_ANY_HIGH(config, m_irqs_int[1]).output_handler().set(FUNC(fp1100_state::int_w<1>));
+	INPUT_MERGER_ANY_HIGH(config, m_irqs_int[2]).output_handler().set(FUNC(fp1100_state::int_w<2>));
+	INPUT_MERGER_ANY_HIGH(config, m_irqs_int[3]).output_handler().set(FUNC(fp1100_state::int_w<3>));
+
+	FP1000_EXP_SLOT(config, m_slot[0], fp1000_exp_devices, nullptr);
+	m_slot[0]->set_iospace(m_maincpu, AS_IO);
+	m_slot[0]->inta_callback().set(m_irqs_int[0], FUNC(input_merger_device::in_w<0>));
+	m_slot[0]->intb_callback().set(m_irqs_int[1], FUNC(input_merger_device::in_w<0>));
+	m_slot[0]->intc_callback().set(m_irqs_int[2], FUNC(input_merger_device::in_w<0>));
+	m_slot[0]->intd_callback().set(m_irqs_int[3], FUNC(input_merger_device::in_w<0>));
+
+	FP1000_EXP_SLOT(config, m_slot[1], fp1000_exp_devices, nullptr);
+	m_slot[1]->set_iospace(m_maincpu, AS_IO);
+	m_slot[1]->inta_callback().set(m_irqs_int[0], FUNC(input_merger_device::in_w<1>));
+	m_slot[1]->intb_callback().set(m_irqs_int[1], FUNC(input_merger_device::in_w<1>));
+	m_slot[1]->intc_callback().set(m_irqs_int[2], FUNC(input_merger_device::in_w<1>));
+	m_slot[1]->intd_callback().set(m_irqs_int[3], FUNC(input_merger_device::in_w<1>));
 }
 
-// ROM definitions
+// TODO: chargen, keyboard ROM and key tops can be substituted on actual FP-1000/FP-1100
+// HN462732G-JKA to position E8 ("common for all languages")
+// HN462532G-G?? to position E21 (chargen)
+// - GKA Spain
+// - GLA Italy
+// - GMA France
+// - GNA Germany
+// - GPA UK
+// - GQA Netherlands
+// - GRA Norway/Denmark
+// - GSA Sweden/Finland
+// - GTA <default chargen, Japan?>
 
 ROM_START( fp1100 )
 	ROM_REGION( 0x9000, "bios", ROMREGION_ERASEFF )
@@ -782,6 +821,7 @@ ROM_START( fp1100 )
 	ROM_REGION( 0x3000, "sub_ipl", ROMREGION_ERASEFF )
 	ROM_LOAD( "sub1.rom", 0x0000, 0x1000, CRC(8feda489) SHA1(917d5b398b9e7b9a6bfa5e2f88c5b99923c3c2a3))
 	ROM_LOAD( "sub2.rom", 0x1000, 0x1000, CRC(359f007e) SHA1(0188d5a7b859075cb156ee55318611bd004128d7))
+	// Japan chargen ROM (GTA?)
 	ROM_LOAD( "sub3.rom", 0x2000, 0xf80, BAD_DUMP CRC(fb2b577a) SHA1(a9ae6b03e06ea2f5db30dfd51ebf5aede01d9672))
 ROM_END
 
@@ -795,15 +835,14 @@ ROM_START( fp1000 )
 	ROM_LOAD( "2l_a10_kkk_fp1000_basic.c1", 0x0000, 0x1000, CRC(9322dedd) SHA1(40a00684ced2b7ead53ca15a915d98f3fe00d3ba))
 
 	ROM_REGION( 0x3000, "sub_ipl", ROMREGION_ERASEFF )
-	ROM_LOAD( "jka_fp1000.e8",    0x0000, 0x1000, CRC(2aefa4e4) SHA1(b3cc5484426c19a7266d17ea5c4d55441b4e3be8))
-	ROM_LOAD( "jkc_fp1000.e21",   0x1000, 0x1000, CRC(67a668a9) SHA1(37fb9308505b47db36f8c341144ca3fe3fec64af))
-	ROM_LOAD( "upd7801g_118.bin", 0x2000, 0xf80, BAD_DUMP CRC(fb2b577a) SHA1(a9ae6b03e06ea2f5db30dfd51ebf5aede01d9672)) // Not dumped, borrowed from 'fp1100'
+	ROM_LOAD( "sub1.rom", 0x0000, 0x1000, BAD_DUMP CRC(8feda489) SHA1(917d5b398b9e7b9a6bfa5e2f88c5b99923c3c2a3)) // Not dumped, borrowed from 'fp1100'
+	ROM_LOAD( "jka_fp1000.e8",    0x1000, 0x1000, CRC(2aefa4e4) SHA1(b3cc5484426c19a7266d17ea5c4d55441b4e3be8))
+	// Spain chargen ROM (GKA really?)
+	ROM_LOAD( "jkc_fp1000.e21",   0x2000, 0x1000, CRC(67a668a9) SHA1(37fb9308505b47db36f8c341144ca3fe3fec64af))
 ROM_END
 
 } // anonymous namespace
 
-
-// Drivers
 
 COMP( 1983, fp1100, 0,      0, fp1100, fp1100, fp1100_state, empty_init, "Casio", "FP-1100", MACHINE_NOT_WORKING)
 COMP( 1982, fp1000, 0, fp1100, fp1100, fp1100, fp1100_state, empty_init, "Casio", "FP-1000", MACHINE_NOT_WORKING)

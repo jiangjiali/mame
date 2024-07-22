@@ -16,7 +16,7 @@ authors:hap
 	<element name="triangle">
 		<image><data><![CDATA[
 			<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="10" height="10">
-				<path d="M 5,0 10,10 0,10 z" fill="#99e6e6" stroke="none" stroke-width="0" />
+				<path d="M 5,0 10,10 0,10 z" fill="#9ee6f4" stroke="none" stroke-width="0" />
 			</svg>
 		]]></data></image>
 	</element>
@@ -29,25 +29,25 @@ authors:hap
 		<disk state="1"><color red="0.77" green="0.77" blue="0.77" /></disk>
 	</element>
 
-	<element name="text_b1"><text string="A 1"><color red="0.6" green="0.9" blue="0.9" /></text></element>
-	<element name="text_b2"><text string="B 2"><color red="0.6" green="0.9" blue="0.9" /></text></element>
-	<element name="text_b3"><text string="C 3"><color red="0.6" green="0.9" blue="0.9" /></text></element>
-	<element name="text_b4"><text string="D 4"><color red="0.6" green="0.9" blue="0.9" /></text></element>
-	<element name="text_b5"><text string="E 5"><color red="0.6" green="0.9" blue="0.9" /></text></element>
-	<element name="text_b6"><text string="F 6"><color red="0.6" green="0.9" blue="0.9" /></text></element>
-	<element name="text_b7"><text string="G 7"><color red="0.6" green="0.9" blue="0.9" /></text></element>
-	<element name="text_b8"><text string="H 8"><color red="0.6" green="0.9" blue="0.9" /></text></element>
-	<element name="text_bng"><text string="NG"><color red="0.93" green="0.92" blue="0.92" /></text></element>
-	<element name="text_bc1"><text string="C"><color red="0.86" green="0.85" blue="0.85" /></text></element>
-	<element name="text_bc2"><text string="C B"><color red="0.86" green="0.85" blue="0.85" /></text></element>
-	<element name="text_bgo"><text string="GO"><color red="0.86" green="0.85" blue="0.85" /></text></element>
+	<element name="text_b1"><text string="A 1"><color red="0.62" green="0.9" blue="0.96" /></text></element>
+	<element name="text_b2"><text string="B 2"><color red="0.62" green="0.9" blue="0.96" /></text></element>
+	<element name="text_b3"><text string="C 3"><color red="0.62" green="0.9" blue="0.96" /></text></element>
+	<element name="text_b4"><text string="D 4"><color red="0.62" green="0.9" blue="0.96" /></text></element>
+	<element name="text_b5"><text string="E 5"><color red="0.62" green="0.9" blue="0.96" /></text></element>
+	<element name="text_b6"><text string="F 6"><color red="0.62" green="0.9" blue="0.96" /></text></element>
+	<element name="text_b7"><text string="G 7"><color red="0.62" green="0.9" blue="0.96" /></text></element>
+	<element name="text_b8"><text string="H 8"><color red="0.62" green="0.9" blue="0.96" /></text></element>
+	<element name="text_bng"><text string="NG"><color red="0.96" green="0.95" blue="0.95" /></text></element>
+	<element name="text_bc1"><text string="C"><color red="0.96" green="0.95" blue="0.95" /></text></element>
+	<element name="text_bc2"><text string="C B"><color red="0.96" green="0.95" blue="0.95" /></text></element>
+	<element name="text_bgo"><text string="GO"><color red="0.96" green="0.95" blue="0.95" /></text></element>
 
-	<element name="text_p1"><image file="chess/wp.svg"><color alpha="0.67" /></image></element>
-	<element name="text_p2"><image file="chess/wn.svg"><color alpha="0.67" /></image></element>
-	<element name="text_p3"><image file="chess/wb.svg"><color alpha="0.67" /></image></element>
-	<element name="text_p4"><image file="chess/wr.svg"><color alpha="0.67" /></image></element>
-	<element name="text_p5"><image file="chess/wq.svg"><color alpha="0.67" /></image></element>
-	<element name="text_p6"><image file="chess/wk.svg"><color alpha="0.67" /></image></element>
+	<element name="text_p1"><image file="chess/wp.svg"><color alpha="0.76" /></image></element>
+	<element name="text_p2"><image file="chess/wn.svg"><color alpha="0.76" /></image></element>
+	<element name="text_p3"><image file="chess/wb.svg"><color alpha="0.76" /></image></element>
+	<element name="text_p4"><image file="chess/wr.svg"><color alpha="0.76" /></image></element>
+	<element name="text_p5"><image file="chess/wq.svg"><color alpha="0.76" /></image></element>
+	<element name="text_p6"><image file="chess/wk.svg"><color alpha="0.76" /></image></element>
 
 	<element name="text_w1"><text string="Ver/Set"><color red="0.86" green="0.85" blue="0.85" /></text></element>
 	<element name="text_w2"><text string="Option 1/2"><color red="0.86" green="0.85" blue="0.85" /></text></element>
