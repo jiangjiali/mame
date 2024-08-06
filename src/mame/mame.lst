@@ -581,6 +581,9 @@ altos5                          //
 @source:altos/altos486.cpp
 altos486
 
+@source:altos/altos586.cpp
+altos586
+
 @source:altos/altos8600.cpp
 altos8600
 
@@ -17973,13 +17976,6 @@ ts2624                          // 1982
 @source:falco/falcots28.cpp
 ts28                            // 1983
 
-@source:fidelity/as12.cpp
-feleg
-felega
-felega1
-felega2
-felega3
-
 @source:fidelity/bridgeb.cpp
 bridgeb
 
@@ -18059,6 +18055,13 @@ premiere                        //
 
 @source:fidelity/eldorado.cpp
 feldo
+
+@source:fidelity/elegance.cpp
+feleg
+felega
+felega1
+felega2
+felega3
 
 @source:fidelity/elite.cpp
 feag                            //
@@ -19831,6 +19834,9 @@ hp9845t_de                      //
 
 @source:hp/hp98x6.cpp
 hp9816a                         //
+hp9826a                         //
+hp9836a                         //
+hp9836c                         //
 
 @source:hp/hp9k.cpp
 hp9816                          //
@@ -20032,6 +20038,7 @@ goldfrui                        // bootleg
 goldstar                        // (c) 198? IGS
 goldstbl                        // (c) 198? IGS
 hamhouse                        // bootleg
+hamhouse9                       // bootleg
 jkrmast                         // (c) 199? unknown
 jkrmasta                        // (c) 199? unknown
 kkotnoli                        // 198? south korean hack
@@ -20145,11 +20152,11 @@ wcherry                         // bootleg
 animalhjb                       // bootleg
 gp98                            // (c) 1998
 gp98a                           // (c) 1998
-jingbell                        // (c) 1997
-jingbella                       // (c) 1997
-jingbellb                       // (c) 1997
-jingbellc                       // (c) 1995
-jingbelli                       // (c) 1995?
+jbell133i                       // (c) 1995?
+jbell141ue                      // (c) 1995
+jbell153ue                      // (c) 1997
+jbell155ue                      // (c) 1997
+jbell157us                      // (c) 1997
 
 @source:igs/igs011.cpp
 dbc                             // (c) 199?
@@ -20198,6 +20205,7 @@ tjsb                            // (c) 1997
 
 @source:igs/igs_fear.cpp
 fearless                        // (c) 2006
+icescape                        // (c) 2006
 superkds
 
 @source:igs/igs_m027.cpp
@@ -20205,23 +20213,33 @@ amazoni2                        // (c) 2002
 amazonia                        // (c) 1999
 amazonkp                        // (c) 1999
 chessc2                         // (c) 200?
-crzybugs                        // (c) 200?
+crzybugs                        // (c) 2009
+crzybugsa                       // (c) 2006
+crzybugsb                       // (c) 2005
+crzybugsj                       // (c) 2007
 extradrw                        // (c) 200?
 fruitpar                        // (c) 200?
 gonefsh2                        // (c) 200?
-haunthig                        // (c) 200?
+haunthig                        // (c) 2008
+haunthiga                       // (c) 2006
+jking02                         // (c) 200?
 klxyj                           // (c) 200?
 lhzb3                           // (c) 200?
 lhzb4                           // (c) 200?
+luckycrs                        // (c) 200?
 mgcs3                           // (c) 200?
 mgfx                            // (c) 200?
 mgzz                            // (c) 2003
 oceanpar                        //
 oceanpara                       //
+olympic5                        // (c) 2005
+olympic5a                       // (c) 2003
 qlgs                            // (c) 1999
 sddz                            // (c) 200?
 sdwx                            // (c) 2002
 slqz3                           // (c) 1999
+tripfev                         // (c) 2006
+wldfruit                        // (c) 200?
 zhongguo                        // (c) 2000
 
 @source:igs/igs_m036.cpp
@@ -20461,6 +20479,7 @@ kov3hd101
 
 @source:igs/spoker.cpp
 3super8                         // unknown
+jbell                           // (c) 1997 IGS
 spk100                          // (c) 1996 IGS
 spk102ua                        // (c) 1996 IGS
 spk114it                        // (c) 199? IGS
@@ -21433,6 +21452,9 @@ uccopsar                        // (c) 1992 Irem (World)
 uccopsaru                       // (c) 1992 Irem America (US)
 uccopsj                         // (c) 1992 Irem (Japan)
 uccopsu                         // (c) 1992 Irem America (US)
+
+@source:irem/m102.cpp
+hclimber                        // (c) 1992 Irem
 
 @source:irem/m107.cpp
 airass                          // (c) 1993 Irem (World)
@@ -28642,6 +28664,7 @@ amhbattl
 docchift
 mmhammer
 shpchamp
+wwdash
 zenponta
 
 @source:misc/anes.cpp
@@ -30661,7 +30684,17 @@ jubileep                        //
 
 @source:misc/jungleyo.cpp
 frtgenie
+frtgeniea
+frtgenieb
+frtgeniec
+frtgenied
 jungleyo
+magjack
+magjacka
+magjackb
+magjackc
+magjackp
+magjackpa
 
 @source:misc/kas89.cpp
 kas89                           // 1989, SFC S.R.L.
@@ -33914,7 +33947,7 @@ terrafu                         // (c) 1987 Nichibutsu USA
 terrafua                        // (c) 1987 Nichibutsu USA
 
 @source:nichibutsu/cclimber.cpp
-au                              // hack
+au                              // Tehkan
 bagmanf                         // bootleg on Falcon FCK-00 (Falcon Crazy Kong) PCB
 bigkong                         // bootleg
 cannonb                         // (c) 1985 Soft
@@ -34897,6 +34930,13 @@ mustangs                        // UPL-90058 (c) 1990 UPL + Seoul Trading
 nouryoku                        // (c) 1995 Tecmo
 nouryokup                       // (c) 1995 Tecmo
 popspops                        // (c) 1999
+powerins                        // (c) 1993 Atlus (USA)
+powerinsa                       // (c) 1993 Atlus (bootleg of USA version)
+powerinsb                       // (c) 1993 Atlus (bootleg of USA version)
+powerinsc                       // (c) 1993 Atlus (bootleg of USA version)
+powerinsj                       // (c) 1993 Atlus (Japan)
+powerinspj                      // prototype (Japan)
+powerinspu                      // prototype (USA)
 raphero                         // (c) 1994 NMK
 rapheroa                        // (c) 1994 Media Trading Corp
 redfoxwp2                       // (c) 1998 (China)
@@ -34948,15 +34988,6 @@ plpittashi                      // NMK
 sluster2                        // NMK
 sweethrt                        // NMK
 trocana                         // NTC / NMK
-
-@source:nmk/powerins.cpp
-powerins                        // (c) 1993 Atlus (USA)
-powerinsa                       // (c) 1993 Atlus (bootleg of USA version)
-powerinsb                       // (c) 1993 Atlus (bootleg of USA version)
-powerinsc                       // (c) 1993 Atlus (bootleg of USA version)
-powerinsj                       // (c) 1993 Atlus (Japan)
-powerinspj                      // prototype (Japan)
-powerinspu                      // prototype (USA)
 
 @source:nmk/quizdna.cpp
 gakupara                        // (c) 1991 NMK
@@ -35040,6 +35071,9 @@ scorpio68
 
 @source:novag/diamond2.cpp
 diamond2
+
+@source:novag/emerclp.cpp
+emerclp
 
 @source:novag/mentor16.cpp
 mentor16
@@ -35417,6 +35451,7 @@ rocktrv2                        // (c) 1986 Triumph Software Inc
 shootbul                        // (c) 1985 Bally Midway
 sprglbpg                        // German bootleg
 sprglobp                        // (c) 1983 Epos Corporation
+sprglobp2                       // bootleg
 superabc                        // hack
 superabco                       // hack
 theglobme                       // (c) 1983 Magic Electronics
@@ -38693,6 +38728,7 @@ jd800                           //
 
 @source:roland/roland_jv80.cpp
 jv880                           //
+rd500                           //
 
 @source:roland/roland_jx3p.cpp
 gr700                           //
@@ -38784,6 +38820,10 @@ r9751                           // ROLM 9751 phone system
 
 @source:sage/sage2.cpp
 sage2
+
+@source:saitek/blitz.cpp
+kblitz
+kblitza
 
 @source:saitek/chessac.cpp
 chessac
@@ -41800,6 +41840,9 @@ bitgrphb                        //
 @source:skeleton/bolsaint.cpp
 bolsaint                        // (c) 2000 Sleic/Petaco
 
+@source:skeleton/boo.cpp
+boo1000
+
 @source:skeleton/bpmmicro.cpp
 bp1200                          // (c) 1991 BP Microsystems
 
@@ -41939,8 +41982,11 @@ e100                            //
 
 @source:skeleton/easy_karaoke.cpp
 bkarast
+dks7000c
+dks7000p
 easykara
 karams
+karamsg
 karatvst
 karatvsta
 mks4001
@@ -42093,6 +42139,9 @@ junior80                        //
 
 @source:skeleton/kkcount.cpp
 kkcount
+
+@source:skeleton/koto_zevio.cpp
+dbzonep                         //
 
 @source:skeleton/kron.cpp
 kron180                         // 1995 Kron Ltd, Ukraine
@@ -42899,6 +42948,7 @@ lastfght                        // (c) 2000 Subsino
 crsbingo                        // (c) 1991 Subsino
 dinofmly                        // (c) 1994 Subsino
 dinofmlya                       // (c) 1995 Subsino (Tangasoft license or hack?)
+grndprix                        // bootleg
 luckyseven                      // bootleg
 mtrainnv                        // (c) 1996 Subsino
 ndongmul                        // (c) 1998 Hyoja Game
@@ -45209,6 +45259,7 @@ wrlshunt                        // Wireless: Hunting Video Game System
 
 @source:tvgames/generalplus_gpl16250_spi.cpp
 bkrankp
+prailpls
 
 @source:tvgames/generalplus_gpl16250_spi_direct.cpp
 fixitflx
