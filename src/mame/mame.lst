@@ -19952,6 +19952,7 @@ dunhuang                        // (c) 1995
 
 @source:igs/funtech.cpp
 fts2in1
+poker21
 
 @source:igs/goldstar.cpp
 3cdpoker                        // hack?
@@ -20200,6 +20201,7 @@ spkrform                        // (c) 2000?
 starzan                         // (c) 2000?
 tarzan                          // (c) 1999
 tarzana                         // (c) 1999
+tarzanb                         // (c) 1999
 tarzanc                         // (c) 1999
 tjsb                            // (c) 1997
 
@@ -41843,6 +41845,10 @@ bolsaint                        // (c) 2000 Sleic/Petaco
 @source:skeleton/boo.cpp
 boo1000
 
+@source:skeleton/boramz80.cpp
+pkboram
+tpkboram
+
 @source:skeleton/bpmmicro.cpp
 bp1200                          // (c) 1991 BP Microsystems
 
@@ -42509,6 +42515,9 @@ vp415                           // (c) 1983 Philips
 
 @source:skeleton/webtouchone.cpp
 wto2840sp                       //
+
+@source:skeleton/whtm68k.cpp
+unkwht
 
 @source:skeleton/xbase09.cpp
 xbase09                         //
@@ -45638,6 +45647,7 @@ domfitad                        //
 dombikec                        //
 
 @source:tvgames/xavix_2000.cpp
+duelmast                        //
 epo_ebox                        //
 epo_bowl                        //
 epo_sdb                         //
